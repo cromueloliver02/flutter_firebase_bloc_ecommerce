@@ -4,8 +4,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../models/models.dart';
 import 'widgets.dart';
 
-class ECMHeroCarousel extends StatelessWidget {
-  const ECMHeroCarousel({super.key});
+class ECMHeroCarouselCategory extends StatelessWidget {
+  const ECMHeroCarouselCategory({
+    super.key,
+    required this.categories,
+  });
+
+  final List<Category> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +22,7 @@ class ECMHeroCarousel extends StatelessWidget {
           enlargeCenterPage: true,
           enlargeStrategy: CenterPageEnlargeStrategy.height,
         ),
-        items:
-            Category.categories.map((d) => ECMHeroCard(category: d)).toList(),
+        items: categories.map((d) => ECMHeroCard(category: d)).toList(),
       ),
     );
   }
