@@ -28,7 +28,7 @@ class ECMBottomAppBar extends StatelessWidget {
                 icon: const Icon(Icons.shopping_cart),
               ),
               IconButton(
-                onPressed: () => Navigator.pushNamed(context, '/user'),
+                onPressed: () => Navigator.pushNamed(context, UserPage.id),
                 color: Colors.white,
                 icon: const Icon(Icons.person),
               ),

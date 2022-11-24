@@ -5,11 +5,13 @@ import '../models/models.dart';
 
 class ECMProductCard extends StatelessWidget {
   const ECMProductCard({
-    super.key,
+    Key? key,
     required this.product,
-  });
+    this.widthFactor = 2.5,
+  }) : super(key: key);
 
   final Product product;
+  final double widthFactor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class ECMProductCard extends StatelessWidget {
       children: [
         SizedBox(
           height: 150,
-          width: screenSize.width / 2.5,
+          width: screenSize.width / widthFactor,
           child: CachedNetworkImage(
             imageUrl: product.imageUrl,
             fit: BoxFit.cover,
@@ -29,7 +31,7 @@ class ECMProductCard extends StatelessWidget {
           top: 60,
           child: Container(
             height: 80,
-            width: screenSize.width / 2.5,
+            width: screenSize.width / widthFactor,
             decoration: BoxDecoration(
               color: Colors.black.withAlpha(50),
             ),
@@ -40,7 +42,7 @@ class ECMProductCard extends StatelessWidget {
           left: 5,
           child: Container(
             height: 70,
-            width: screenSize.width / 2.5 - 10,
+            width: screenSize.width / widthFactor - 10,
             decoration: const BoxDecoration(
               color: Colors.black,
             ),

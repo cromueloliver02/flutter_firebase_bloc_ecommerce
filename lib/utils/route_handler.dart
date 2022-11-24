@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
+import '../models/models.dart' as models;
 import '../pages/pages.dart';
 
 class RouteHandler {
   final Map<String, WidgetBuilder> routes = {
     HomePage.id: (ctx) => const HomePage(),
     CartPage.id: (ctx) => const CartPage(),
+    UserPage.id: (ctx) => const UserPage(),
     ProductPage.id: (ctx) => const ProductPage(),
     WishlistPage.id: (ctx) => const WishlistPage(),
-    CatalogPage.id: (ctx) => const CatalogPage(),
   };
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     if (kDebugMode) print('route id: ${settings.name}');
 
     switch (settings.name) {
+      case CatalogPage.id:
+        final category = settings.arguments as models.Category;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (ctx) => CatalogPage(category: category),
+        );
       default:
         return _errorPage(settings);
     }
