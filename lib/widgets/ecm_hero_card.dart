@@ -7,15 +7,17 @@ import '../pages/pages.dart';
 class ECMHeroCard extends StatelessWidget {
   const ECMHeroCard({
     super.key,
-    required this.category,
+    this.category,
+    this.product,
   });
 
-  final Category category;
+  final Category? category;
+  final Product? product;
 
   void _onTap(BuildContext ctx) => Navigator.pushNamed(
         ctx,
-        CatalogPage.id,
-        arguments: category,
+        category != null ? CatalogPage.id : ProductPage.id,
+        arguments: category ?? product,
       );
 
   @override
@@ -33,7 +35,8 @@ class ECMHeroCard extends StatelessWidget {
           child: Stack(
             children: [
               CachedNetworkImage(
-                imageUrl: category.imageUrl,
+                imageUrl:
+                    category != null ? category!.imageUrl : product!.imageUrl,
                 fit: BoxFit.cover,
                 width: 1000,
               ),
@@ -57,7 +60,7 @@ class ECMHeroCard extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    category.name,
+                    category != null ? category!.name : '',
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

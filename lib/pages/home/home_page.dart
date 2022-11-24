@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: const ECMBottomAppBar(),
       body: Column(
         children: [
-          ECMHeroCarouselCategory(categories: Category.categories),
+          ECMHeroCarouselCategories(categories: Category.categories),
           const ECMSectionTitle(title: 'RECOMMENDED'),
           ECMProductCarousel(
             products: Product.products.where((d) => d.isRecommended).toList(),

@@ -9,7 +9,6 @@ class RouteHandler {
     HomePage.id: (ctx) => const HomePage(),
     CartPage.id: (ctx) => const CartPage(),
     UserPage.id: (ctx) => const UserPage(),
-    ProductPage.id: (ctx) => const ProductPage(),
     WishlistPage.id: (ctx) => const WishlistPage(),
   };
 
@@ -23,6 +22,14 @@ class RouteHandler {
           settings: settings,
           builder: (ctx) => CatalogPage(category: category),
         );
+
+      case ProductPage.id:
+        final product = settings.arguments as models.Product;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (ctx) => ProductPage(product: product),
+        );
+
       default:
         return _errorPage(settings);
     }
