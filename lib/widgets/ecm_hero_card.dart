@@ -3,8 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import '../models/models.dart';
 
-class ECMCarouselCard extends StatelessWidget {
-  const ECMCarouselCard({
+class ECMHeroCard extends StatelessWidget {
+  const ECMHeroCard({
     super.key,
     required this.category,
   });

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
@@ -17,18 +16,18 @@ class HomePage extends StatelessWidget {
         child: ECMAppBar(title: 'Zero To Unicorn'),
       ),
       bottomNavigationBar: const ECMBottomAppBar(),
-      body: SizedBox(
-        child: CarouselSlider(
-          options: CarouselOptions(
-            aspectRatio: 1.5,
-            viewportFraction: 0.9,
-            enlargeCenterPage: true,
-            enlargeStrategy: CenterPageEnlargeStrategy.height,
+      body: Column(
+        children: [
+          const ECMHeroCarousel(),
+          const ECMSectionTitle(title: 'RECOMMENDED'),
+          ECMProductCarousel(
+            products: Product.products.where((d) => d.isRecommended).toList(),
           ),
-          items: Category.categories
-              .map((d) => ECMCarouselCard(category: d))
-              .toList(),
-        ),
+          const ECMSectionTitle(title: 'MOST POPULAR'),
+          ECMProductCarousel(
+            products: Product.products.where((d) => d.isPopular).toList(),
+          ),
+        ],
       ),
     );
   }
