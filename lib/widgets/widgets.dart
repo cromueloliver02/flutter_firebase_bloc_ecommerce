@@ -6,3 +6,5 @@ export 'ecm_hero_carousel_products.dart';
 export 'ecm_hero_card.dart';
 export 'ecm_product_carousel.dart';
 export 'ecm_product_card.dart';
+export 'ecm_loading.dart';
+export 'ecm_error_message.dart';

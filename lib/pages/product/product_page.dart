@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
+import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
 
 class ProductPage extends StatelessWidget {
@@ -12,6 +13,16 @@ class ProductPage extends StatelessWidget {
   });
 
   final Product product;
+
+  void _addToWishlist(BuildContext ctx) {
+    ctx.read<WishlistBloc>().add(AddWishlistEvent(product: product));
+
+    ScaffoldMessenger.of(ctx)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(const SnackBar(
+        content: Text('Added to your wishlist'),
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +47,7 @@ class ProductPage extends StatelessWidget {
                 icon: const Icon(Icons.share),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => _addToWishlist(context),
                 color: Colors.white,
                 icon: const Icon(Icons.favorite),
               ),

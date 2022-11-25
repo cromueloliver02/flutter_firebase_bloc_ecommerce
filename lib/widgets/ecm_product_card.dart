@@ -9,10 +9,14 @@ class ECMProductCard extends StatelessWidget {
     Key? key,
     required this.product,
     this.widthFactor = 2.5,
+    this.leftPosition = 0,
+    this.isWishList = false,
   }) : super(key: key);
 
   final Product product;
   final double widthFactor;
+  final double leftPosition;
+  final bool isWishList;
 
   void _onTap(BuildContext ctx) => Navigator.pushNamed(
         ctx,
@@ -38,6 +42,7 @@ class ECMProductCard extends StatelessWidget {
           ),
           Positioned(
             top: 60,
+            left: leftPosition,
             child: Container(
               height: 80,
               width: screenSize.width / widthFactor,
@@ -48,7 +53,8 @@ class ECMProductCard extends StatelessWidget {
           ),
           Positioned(
             top: 65,
-            left: 5,
+            left: leftPosition + 10,
+            right: 10,
             child: Container(
               height: 70,
               width: screenSize.width / widthFactor - 10,
@@ -58,7 +64,6 @@ class ECMProductCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -80,11 +85,18 @@ class ECMProductCard extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const Spacer(),
                     IconButton(
                       onPressed: () {},
                       color: Colors.white,
                       icon: const Icon(Icons.add_circle),
                     ),
+                    if (isWishList)
+                      IconButton(
+                        onPressed: () {},
+                        color: Colors.white,
+                        icon: const Icon(Icons.delete),
+                      ),
                   ],
                 ),
               ),
