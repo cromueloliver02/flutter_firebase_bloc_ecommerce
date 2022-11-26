@@ -52,7 +52,7 @@ class CartPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Add \$20 for FREE delivery',
+                      const Cart().freeDelivery,
                       style: textTheme.headline5,
                     ),
                     ElevatedButton(
@@ -95,7 +95,7 @@ class CartPage extends StatelessWidget {
                             style: textTheme.headline5,
                           ),
                           Text(
-                            '\$5.98',
+                            '\$${const Cart().subtotalString}',
                             style: textTheme.headline5,
                           ),
                         ],
@@ -109,7 +109,7 @@ class CartPage extends StatelessWidget {
                             style: textTheme.headline5,
                           ),
                           Text(
-                            '\$2.90',
+                            '\$${const Cart().deliveryFeeString}',
                             style: textTheme.headline5,
                           ),
                         ],
@@ -139,7 +139,7 @@ class CartPage extends StatelessWidget {
                                 .copyWith(color: Colors.white),
                           ),
                           Text(
-                            '\$12.90',
+                            '\$${const Cart().totalString}',
                             style: textTheme.headline5!
                                 .copyWith(color: Colors.white),
                           ),
