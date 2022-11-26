@@ -1,43 +1,30 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
+import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
 import '../../pages/pages.dart';
+import 'components/cart_page_bottom_appbar.dart';
+import 'components/cart_product_list.dart';
+import 'components/cart_calculations.dart';
 
 class CartPage extends StatelessWidget {
   static const id = '/cart';
 
   const CartPage({super.key});
 
+  void _goToHome(BuildContext ctx) => Navigator.pushNamed(ctx, HomePage.id);
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: ECMAppBar(title: 'Cart'),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        padding: const EdgeInsets.only(top: 10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                child: Text(
-                  'GO TO CHECKOUT',
-                  style: textTheme.headline3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: const CartPageBottomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -46,110 +33,42 @@ class CartPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      const Cart().freeDelivery,
-                      style: textTheme.headline5,
-                    ),
-                    ElevatedButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, HomePage.id),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: const RoundedRectangleBorder(),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        'Add More Items',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                ECMCartProductCard(product: Product.products[0]),
-              ],
-            ),
-            Column(
-              children: [
-                const Divider(thickness: 2),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 10,
-                  ),
-                  child: Column(
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'SUBTOTAL',
-                            style: textTheme.headline5,
-                          ),
-                          Text(
-                            '\$${const Cart().subtotalString}',
-                            style: textTheme.headline5,
-                          ),
-                        ],
+                      BlocSelector<CartBloc, CartState, Cart>(
+                        selector: (state) => state.cart,
+                        builder: (ctx, cart) => Text(
+                          cart.freeDelivery,
+                          style: textTheme.headline5,
+                        ),
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'DELIVERY FEE',
-                            style: textTheme.headline5,
-                          ),
-                          Text(
-                            '\$${const Cart().deliveryFeeString}',
-                            style: textTheme.headline5,
-                          ),
-                        ],
+                      ElevatedButton(
+                        onPressed: () => _goToHome(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          shape: const RoundedRectangleBorder(),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          'Add More Items',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      width: screenSize.width,
-                      height: 60,
-                      color: Colors.black.withAlpha(50),
-                    ),
-                    Container(
-                      color: Colors.black,
-                      height: 50,
-                      width: screenSize.width,
-                      margin: const EdgeInsets.all(5),
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'TOTAL',
-                            style: textTheme.headline5!
-                                .copyWith(color: Colors.white),
-                          ),
-                          Text(
-                            '\$${const Cart().totalString}',
-                            style: textTheme.headline5!
-                                .copyWith(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  const CartProductList(),
+                ],
+              ),
             ),
+            const CartCalculations(),
           ],
         ),
       ),

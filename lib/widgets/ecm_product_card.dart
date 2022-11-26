@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../models/models.dart';
+import '../blocs/blocs.dart';
 import '../pages/pages.dart';
 
 class ECMProductCard extends StatelessWidget {
@@ -86,10 +87,25 @@ class ECMProductCard extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      color: Colors.white,
-                      icon: const Icon(Icons.add_circle),
+                    BlocSelector<CartBloc, CartState, CartStatus>(
+                      selector: (state) => state.status,
+                      builder: (ctx, status) {
+                        if (status == CartStatus.loading) {
+                          return const Padding(
+                            padding: EdgeInsets.only(right: 15),
+                            child: SizedBox.square(
+                              dimension: 20,
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+
+                        return IconButton(
+                          onPressed: () => Cart.addToCart(context, product),
+                          color: Colors.white,
+                          icon: const Icon(Icons.add_circle),
+                        );
+                      },
                     ),
                     if (isWishList)
                       IconButton(

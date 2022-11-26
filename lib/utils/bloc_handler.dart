@@ -5,5 +5,8 @@ class BlocHandler {
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc()..add(FetchWishlistEvent()),
     ),
+    BlocProvider<CartBloc>(
+      create: (ctx) => CartBloc()..add(FetchCartItemsEvent()),
+    ),
   ];
 }

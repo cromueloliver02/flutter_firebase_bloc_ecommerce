@@ -43,12 +43,12 @@ class ECMCartProductCard extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => Cart.removeToCart(context, product),
               icon: const Icon(Icons.remove_circle),
             ),
             Text('1', style: textTheme.headline5),
             IconButton(
-              onPressed: () {},
+              onPressed: () => Cart.addToCart(context, product),
               icon: const Icon(Icons.add_circle),
             ),
           ],

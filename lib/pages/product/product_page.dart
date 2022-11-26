@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
-import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
+import 'components/product_page_bottom_appbar.dart';
 
 class ProductPage extends StatelessWidget {
   static const id = '/product';
@@ -14,16 +14,6 @@ class ProductPage extends StatelessWidget {
 
   final Product product;
 
-  void _addToWishlist(BuildContext ctx) {
-    ctx.read<WishlistBloc>().add(AddWishlistEvent(product: product));
-
-    ScaffoldMessenger.of(ctx)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(
-        content: Text('Added to your wishlist'),
-      ));
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -34,35 +24,7 @@ class ProductPage extends StatelessWidget {
         preferredSize: const Size.fromHeight(50),
         child: ECMAppBar(title: product.name),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        padding: const EdgeInsets.only(top: 10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                onPressed: () {},
-                color: Colors.white,
-                icon: const Icon(Icons.share),
-              ),
-              IconButton(
-                onPressed: () => _addToWishlist(context),
-                color: Colors.white,
-                icon: const Icon(Icons.favorite),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                child: Text(
-                  'ADD TO CART',
-                  style: textTheme.headline3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: ProductPageBottomAppBar(product: product),
       body: ListView(
         children: [
           ECMHeroCarouselProducts(products: Product.products),
