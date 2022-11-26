@@ -33,14 +33,14 @@ class CartProductList extends StatelessWidget {
           );
         }
 
-        final List<Product> products = state.cart.products;
+        final List<Product> cartProducts = state.cart.products;
 
         return Expanded(
           child: ListView.separated(
-            itemCount: products.length,
+            itemCount: cartProducts.length,
             separatorBuilder: (ctx, idx) => const SizedBox(height: 10),
             itemBuilder: (ctx, idx) => ECMCartProductCard(
-              product: products[idx],
+              product: cartProducts[idx],
             ),
           ),
         );

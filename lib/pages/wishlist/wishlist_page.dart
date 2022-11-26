@@ -33,11 +33,11 @@ class WishlistPage extends StatelessWidget {
             return const ECMErrorMessage();
           }
 
-          final List<Product> wishlist = state.wishlist;
+          final List<Product> wishlistProducts = state.wishlist.products;
 
           return GridView.builder(
             // I don't know why gridview instead of listview
-            itemCount: wishlist.length,
+            itemCount: wishlistProducts.length,
             padding: const EdgeInsets.symmetric(
               horizontal: 8,
               vertical: 16,
@@ -48,7 +48,7 @@ class WishlistPage extends StatelessWidget {
             ),
             itemBuilder: (ctx, idx) => Center(
               child: ECMProductCard(
-                product: wishlist[idx],
+                product: wishlistProducts[idx],
                 widthFactor: 1.1,
                 leftPosition: 100,
                 isWishList: true,

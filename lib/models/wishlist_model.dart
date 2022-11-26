@@ -1,17 +1,17 @@
-// import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart';
 
-// import 'models.dart';
+import 'models.dart';
 
-// class Wishlist extends Equatable {
-//   final List<Product> products;
+class Wishlist extends Equatable {
+  final List<Product> products;
 
-//   const Wishlist({
-//     this.products = const <Product>[],
-//   });
+  const Wishlist({
+    this.products = const <Product>[],
+  });
 
-//   @override
-//   List<Object> get props => [products];
+  @override
+  List<Object> get props => [products];
 
-//   @override
-//   String toString() => 'Wishlist(products: $products)';
-// }
+  @override
+  String toString() => 'Wishlist(products: $products)';
+}

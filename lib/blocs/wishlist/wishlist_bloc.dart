@@ -25,7 +25,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
       emit(state.copyWith(
         status: WishlistStatus.loaded,
-        wishlist: <Product>[],
+        wishlist: const Wishlist(),
       ));
     } on CustomError catch (err) {
       emit(state.copyWith(
@@ -44,9 +44,14 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     emit(state.copyWith(status: WishlistStatus.loading));
 
     try {
+      final List<Product> products = [
+        event.product,
+        ...state.wishlist.products
+      ];
+
       emit(state.copyWith(
         status: WishlistStatus.loaded,
-        wishlist: [event.product, ...state.wishlist],
+        wishlist: Wishlist(products: products),
       ));
     } on CustomError catch (err) {
       emit(state.copyWith(
@@ -65,9 +70,12 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     emit(state.copyWith(status: WishlistStatus.loading));
 
     try {
+      final List<Product> products = List<Product>.from(state.wishlist.products)
+        ..remove(event.product);
+
       emit(state.copyWith(
         status: WishlistStatus.loaded,
-        wishlist: state.wishlist..remove(event.product),
+        wishlist: Wishlist(products: products),
       ));
     } on CustomError catch (err) {
       emit(state.copyWith(

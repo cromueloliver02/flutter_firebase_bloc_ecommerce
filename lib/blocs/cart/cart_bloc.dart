@@ -44,9 +44,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(state.copyWith(status: CartStatus.loading));
 
     try {
+      final List<Product> products = [event.product, ...state.cart.products];
+
       emit(state.copyWith(
         status: CartStatus.loaded,
-        cart: Cart(products: [event.product, ...state.cart.products]),
+        cart: Cart(products: products),
       ));
     } on CustomError catch (err) {
       emit(state.copyWith(
@@ -65,7 +67,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(state.copyWith(status: CartStatus.loading));
 
     try {
-      final products = List<Product>.from(state.cart.products)
+      final List<Product> products = List<Product>.from(state.cart.products)
         ..remove(event.product);
 
       emit(state.copyWith(

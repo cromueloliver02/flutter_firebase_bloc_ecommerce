@@ -2,7 +2,7 @@ part of 'wishlist_bloc.dart';
 
 class WishlistState extends Equatable {
   final WishlistStatus status;
-  final List<Product> wishlist;
+  final Wishlist wishlist;
   final CustomError error;
 
   const WishlistState({
@@ -14,7 +14,7 @@ class WishlistState extends Equatable {
   factory WishlistState.initial() {
     return const WishlistState(
       status: WishlistStatus.initial,
-      wishlist: <Product>[],
+      wishlist: Wishlist(),
       error: CustomError(),
     );
   }
@@ -28,7 +28,7 @@ class WishlistState extends Equatable {
 
   WishlistState copyWith({
     WishlistStatus? status,
-    List<Product>? wishlist,
+    Wishlist? wishlist,
     CustomError? error,
   }) {
     return WishlistState(
