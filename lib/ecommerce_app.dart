@@ -13,16 +13,19 @@ class EcommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: _blocHandler.blocProviders,
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: _themeHandler.theme,
-        initialRoute: SplashPage.id,
-        routes: _routeHandler.routes,
-        onGenerateRoute: _routeHandler.onGenerateRoute,
-        onUnknownRoute: _routeHandler.onUnknownRoute,
+    return MultiRepositoryProvider(
+      providers: _blocHandler.repositoryProviders,
+      child: MultiBlocProvider(
+        providers: _blocHandler.blocProviders,
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: _themeHandler.theme,
+          initialRoute: SplashPage.id,
+          routes: _routeHandler.routes,
+          onGenerateRoute: _routeHandler.onGenerateRoute,
+          onUnknownRoute: _routeHandler.onUnknownRoute,
+        ),
       ),
     );
   }

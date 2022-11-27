@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../models/models.dart';
+import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
+import 'components/most_popular_section.dart';
+import 'components/recommended_section.dart';
 
 class HomePage extends StatelessWidget {
   static const id = '/home';
@@ -18,15 +20,36 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: const ECMBottomAppBar(),
       body: ListView(
         children: [
-          ECMHeroCarouselCategories(categories: Category.categories),
-          const ECMSectionTitle(title: 'RECOMMENDED'),
-          ECMProductCarousel(
-            products: Product.products.where((d) => d.isRecommended).toList(),
+          BlocBuilder<CategoryBloc, CategoryState>(
+            builder: (ctx, state) {
+              final CategoryStatus status = state.status;
+
+              if (status == CategoryStatus.initial) {
+                return const SizedBox.shrink();
+              }
+
+              if (status == CategoryStatus.loading) {
+                return const SizedBox(
+                  height: 300,
+                  child: ECMLoading(),
+                );
+              }
+
+              if (status == CategoryStatus.error) {
+                return const SizedBox(
+                  height: 300,
+                  child: ECMErrorMessage(),
+                );
+              }
+
+              final categories = state.categories;
+
+              return ECMHeroCarouselCategories(categories: categories);
+            },
           ),
-          const ECMSectionTitle(title: 'MOST POPULAR'),
-          ECMProductCarousel(
-            products: Product.products.where((d) => d.isPopular).toList(),
-          ),
+          const RecommendedSection(),
+          const SizedBox(height: 10),
+          const MostPopularSection(),
         ],
       ),
     );

@@ -15,6 +15,7 @@ class ECMHeroCarouselCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 300,
       child: CarouselSlider(
         options: CarouselOptions(
           aspectRatio: 1.5,
