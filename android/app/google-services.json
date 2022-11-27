@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "839361097161",
+    "project_id": "firebase-bloc-ecommerce02",
+    "storage_bucket": "firebase-bloc-ecommerce02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839361097161:android:9b18775138d50c0ca18c18",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase_bloc_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839361097161-4nsfmq4aic8lasnq7g6ieeboqcl5g98l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKRTr2pnY7soSplKOEzlycRQKwydUTpfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839361097161-4nsfmq4aic8lasnq7g6ieeboqcl5g98l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "839361097161-46qkfktucnvqp57r460jghq9530ma08a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterFirebaseBlocEcommerce"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
