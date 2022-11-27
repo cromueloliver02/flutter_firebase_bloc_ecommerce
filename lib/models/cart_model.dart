@@ -9,6 +9,18 @@ class Cart extends Equatable {
 
   const Cart({this.products = const <Product>[]});
 
+  Map<Product, int> cartMap(List<Product> products) {
+    final map = <Product, int>{};
+
+    for (final d in products) {
+      if (!map.containsKey(d)) map[d] = 0;
+
+      map[d] = map[d]! + 1;
+    }
+
+    return map;
+  }
+
   double get _subtotal =>
       products.fold(0.0, (total, current) => total + current.price);
 

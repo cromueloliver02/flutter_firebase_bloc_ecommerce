@@ -44,7 +44,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(state.copyWith(status: CartStatus.loading));
 
     try {
-      final List<Product> products = [event.product, ...state.cart.products];
+      final List<Product> products = [...state.cart.products, event.product];
 
       emit(state.copyWith(
         status: CartStatus.loaded,

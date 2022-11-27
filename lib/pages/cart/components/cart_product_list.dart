@@ -33,14 +33,16 @@ class CartProductList extends StatelessWidget {
           );
         }
 
-        final List<Product> cartProducts = state.cart.products;
+        final Map<Product, int> cartMap =
+            state.cart.cartMap(state.cart.products);
 
         return Expanded(
           child: ListView.separated(
-            itemCount: cartProducts.length,
+            itemCount: cartMap.length,
             separatorBuilder: (ctx, idx) => const SizedBox(height: 10),
             itemBuilder: (ctx, idx) => ECMCartProductCard(
-              product: cartProducts[idx],
+              product: cartMap.keys.elementAt(idx),
+              quantity: cartMap.values.elementAt(idx),
             ),
           ),
         );

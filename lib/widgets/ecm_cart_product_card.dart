@@ -7,9 +7,11 @@ class ECMCartProductCard extends StatelessWidget {
   const ECMCartProductCard({
     super.key,
     required this.product,
+    required this.quantity,
   });
 
   final Product product;
+  final int quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class ECMCartProductCard extends StatelessWidget {
               onPressed: () => Cart.removeToCart(context, product),
               icon: const Icon(Icons.remove_circle),
             ),
-            Text('1', style: textTheme.headline5),
+            Text('$quantity', style: textTheme.headline5),
             IconButton(
               onPressed: () => Cart.addToCart(context, product),
               icon: const Icon(Icons.add_circle),
