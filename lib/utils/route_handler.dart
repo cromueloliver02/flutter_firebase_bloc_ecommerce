@@ -32,22 +32,14 @@ class RouteHandler {
         );
 
       default:
-        return _errorPage(settings);
+        return null;
     }
   }
 
-  static Route _errorPage(RouteSettings settings) {
+  Route<dynamic>? onUnknownRoute(RouteSettings settings) {
     return MaterialPageRoute(
-      settings: const RouteSettings(name: '/error'),
-      builder: (ctx) => Scaffold(
-        appBar: AppBar(title: const Text('Error')),
-        body: const Center(
-          child: Text(
-            '404: Page not found',
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
+      settings: settings,
+      builder: (ctx) => const NotFoundPage(),
     );
   }
 }

@@ -4,7 +4,7 @@ import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
-  static const id = '/';
+  static const id = '/home';
 
   const HomePage({super.key});
 
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         child: ECMAppBar(title: 'Zero To Unicorn'),
       ),
       bottomNavigationBar: const ECMBottomAppBar(),
-      body: Column(
+      body: ListView(
         children: [
           ECMHeroCarouselCategories(categories: Category.categories),
           const ECMSectionTitle(title: 'RECOMMENDED'),

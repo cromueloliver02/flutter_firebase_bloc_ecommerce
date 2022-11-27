@@ -22,6 +22,7 @@ class EcommerceApp extends StatelessWidget {
         initialRoute: SplashPage.id,
         routes: _routeHandler.routes,
         onGenerateRoute: _routeHandler.onGenerateRoute,
+        onUnknownRoute: _routeHandler.onUnknownRoute,
       ),
     );
   }
