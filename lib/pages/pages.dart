@@ -1,3 +1,4 @@
+export 'splash/splash_page.dart';
 export 'home/home_page.dart';
 export 'cart/cart_page.dart';
 export 'user/user_page.dart';

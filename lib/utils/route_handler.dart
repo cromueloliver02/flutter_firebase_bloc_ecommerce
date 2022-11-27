@@ -6,6 +6,7 @@ import '../pages/pages.dart';
 
 class RouteHandler {
   final Map<String, WidgetBuilder> routes = {
+    SplashPage.id: (ctx) => const SplashPage(),
     HomePage.id: (ctx) => const HomePage(),
     CartPage.id: (ctx) => const CartPage(),
     UserPage.id: (ctx) => const UserPage(),
@@ -17,14 +18,14 @@ class RouteHandler {
 
     switch (settings.name) {
       case CatalogPage.id:
-        final category = settings.arguments as models.Category;
+        final models.Category category = settings.arguments as models.Category;
         return MaterialPageRoute(
           settings: settings,
           builder: (ctx) => CatalogPage(category: category),
         );
 
       case ProductPage.id:
-        final product = settings.arguments as models.Product;
+        final models.Product product = settings.arguments as models.Product;
         return MaterialPageRoute(
           settings: settings,
           builder: (ctx) => ProductPage(product: product),

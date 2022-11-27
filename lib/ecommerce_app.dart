@@ -19,7 +19,7 @@ class EcommerceApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: _themeHandler.theme,
-        initialRoute: HomePage.id,
+        initialRoute: SplashPage.id,
         routes: _routeHandler.routes,
         onGenerateRoute: _routeHandler.onGenerateRoute,
       ),
