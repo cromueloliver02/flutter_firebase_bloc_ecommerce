@@ -6,7 +6,6 @@ import '../../widgets/widgets.dart';
 import '../../pages/pages.dart';
 import 'components/cart_page_bottom_appbar.dart';
 import 'components/cart_product_list.dart';
-import 'components/cart_calculations.dart';
 
 class CartPage extends StatelessWidget {
   static const id = '/cart';
@@ -68,7 +67,7 @@ class CartPage extends StatelessWidget {
                 ],
               ),
             ),
-            const CartCalculations(),
+            const ECMOrderSummary(),
           ],
         ),
       ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/models.dart';
-import '../../../blocs/blocs.dart';
+import '../models/models.dart';
+import '../blocs/blocs.dart';
 
-class CartCalculations extends StatelessWidget {
-  const CartCalculations({super.key});
+class ECMOrderSummary extends StatelessWidget {
+  const ECMOrderSummary({super.key});
 
   @override
   Widget build(BuildContext context) {

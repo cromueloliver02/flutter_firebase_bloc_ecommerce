@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../pages/pages.dart';
-
-class CartPageBottomAppBar extends StatelessWidget {
-  const CartPageBottomAppBar({super.key});
-
-  void _goToCheckout(BuildContext ctx) => Navigator.pushNamed(
-        ctx,
-        CheckoutPage.id,
-      );
+class CheckoutPageBottomAppBar extends StatelessWidget {
+  const CheckoutPageBottomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +15,10 @@ class CartPageBottomAppBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => _goToCheckout(context),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
               child: Text(
-                'GO TO CHECKOUT',
+                'ORDER NOW',
                 style: textTheme.headline3,
               ),
             ),
