@@ -1,17 +1,25 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../models/models.dart';
 import '../../../blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
+import '../../../utils/utils.dart';
 
 class CartProductList extends StatelessWidget {
   const CartProductList({super.key});
+
+  void _cartListener(BuildContext ctx, CartState state) {
+    if (state.status == CartStatus.error) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return BlocBuilder<CartBloc, CartState>(
+    return BlocConsumer<CartBloc, CartState>(
+      listener: _cartListener,
       builder: (ctx, state) {
         final CartStatus status = state.status;
 

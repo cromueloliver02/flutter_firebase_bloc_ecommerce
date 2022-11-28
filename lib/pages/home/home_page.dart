@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
+import '../../utils/utils.dart';
 import 'components/most_popular_section.dart';
 import 'components/recommended_section.dart';
 
@@ -9,6 +10,12 @@ class HomePage extends StatelessWidget {
   static const id = '/home';
 
   const HomePage({super.key});
+
+  void _categoryListener(BuildContext ctx, CategoryState state) {
+    if (state.status == CategoryStatus.error) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,8 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: const ECMBottomAppBar(),
       body: ListView(
         children: [
-          BlocBuilder<CategoryBloc, CategoryState>(
+          BlocConsumer<CategoryBloc, CategoryState>(
+            listener: _categoryListener,
             builder: (ctx, state) {
               final CategoryStatus status = state.status;
 

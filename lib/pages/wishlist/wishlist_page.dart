@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import '../../models/models.dart';
 import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
+import '../../utils/utils.dart';
 
 class WishlistPage extends StatelessWidget {
   static const id = '/wishlist';
 
   const WishlistPage({super.key});
+
+  void _wishlistListener(BuildContext ctx, WishlistState state) {
+    if (state.status == WishlistStatus.error) {
+      showErrorDialog(ctx, state.error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +24,8 @@ class WishlistPage extends StatelessWidget {
         child: ECMAppBar(title: 'Wishlist'),
       ),
       bottomNavigationBar: const ECMBottomAppBar(),
-      body: BlocBuilder<WishlistBloc, WishlistState>(
+      body: BlocConsumer<WishlistBloc, WishlistState>(
+        listener: _wishlistListener,
         builder: (ctx, state) {
           final WishlistStatus status = state.status;
 
