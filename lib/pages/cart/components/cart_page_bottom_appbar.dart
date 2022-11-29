@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/models.dart';
+import '../../../blocs/blocs.dart';
 import '../../../pages/pages.dart';
 
 class CartPageBottomAppBar extends StatelessWidget {
@@ -21,15 +23,22 @@ class CartPageBottomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () => _goToCheckout(context),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
-              child: Text(
-                'GO TO CHECKOUT',
-                style: textTheme.headline3,
-              ),
+            BlocSelector<CartBloc, CartState, List<Product>>(
+              selector: (state) => state.cart.products,
+              builder: (ctx, products) {
+                return ElevatedButton(
+                  onPressed:
+                      products.isEmpty ? null : () => _goToCheckout(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    disabledBackgroundColor: Colors.grey,
+                  ),
+                  child: Text(
+                    'GO TO CHECKOUT',
+                    style: textTheme.headline3,
+                  ),
+                );
+              },
             ),
           ],
         ),

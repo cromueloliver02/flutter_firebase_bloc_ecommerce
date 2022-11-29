@@ -15,6 +15,11 @@ class BlocHandler {
         firebaseFirestore: FirebaseFirestore.instance,
       ),
     ),
+    RepositoryProvider<CheckoutRepository>(
+      create: (ctx) => CheckoutRepository(
+        firebaseFirestore: FirebaseFirestore.instance,
+      ),
+    ),
   ];
 
   final List<BlocProvider> blocProviders = [
@@ -23,6 +28,13 @@ class BlocHandler {
     ),
     BlocProvider<CartBloc>(
       create: (ctx) => CartBloc()..add(FetchCartItemsEvent()),
+    ),
+    BlocProvider<CheckoutBloc>(
+      lazy: false,
+      create: (ctx) => CheckoutBloc(
+        cartBloc: ctx.read<CartBloc>(),
+        checkoutRepository: ctx.read<CheckoutRepository>(),
+      ),
     ),
     BlocProvider<CategoryBloc>(
       create: (ctx) => CategoryBloc(
