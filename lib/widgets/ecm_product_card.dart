@@ -25,6 +25,16 @@ class ECMProductCard extends StatelessWidget {
         arguments: product,
       );
 
+  void _addToCart(BuildContext ctx) {
+    ScaffoldMessenger.of(ctx)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(content: Text('Product Added')),
+      );
+
+    Cart.addToCart(ctx, product);
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -101,7 +111,7 @@ class ECMProductCard extends StatelessWidget {
                         }
 
                         return IconButton(
-                          onPressed: () => Cart.addToCart(context, product),
+                          onPressed: () => _addToCart(context),
                           color: Colors.white,
                           icon: const Icon(Icons.add_circle),
                         );
