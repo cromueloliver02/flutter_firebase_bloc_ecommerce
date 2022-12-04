@@ -24,10 +24,10 @@ class BlocHandler {
 
   final List<BlocProvider> blocProviders = [
     BlocProvider<WishlistBloc>(
-      create: (ctx) => WishlistBloc()..add(FetchWishlistEvent()),
+      create: (ctx) => WishlistBloc()..add(LoadWishlistEvent()),
     ),
     BlocProvider<CartBloc>(
-      create: (ctx) => CartBloc()..add(FetchCartItemsEvent()),
+      create: (ctx) => CartBloc()..add(LoadCartItemsEvent()),
     ),
     BlocProvider<CheckoutBloc>(
       lazy: false,
@@ -39,12 +39,12 @@ class BlocHandler {
     BlocProvider<CategoryBloc>(
       create: (ctx) => CategoryBloc(
         categoryRepository: ctx.read<CategoryRepository>(),
-      )..add(FetchCategoriesEvent()),
+      )..add(LoadCategoriesEvent()),
     ),
     BlocProvider<ProductBloc>(
       create: (ctx) => ProductBloc(
         productRepository: ctx.read<ProductRepository>(),
-      )..add(FetchProductsEvent()),
+      )..add(LoadProductsEvent()),
     ),
   ];
 }

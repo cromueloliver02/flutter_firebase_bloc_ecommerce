@@ -19,18 +19,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     required this.cartBloc,
     required this.checkoutRepository,
   }) : super(CheckoutState.initial()) {
-    _cartSubscription = cartBloc.stream.listen((CartState cartState) {
-      if (cartState.status == CartStatus.loaded) {
-        final cart = cartState.cart;
-
-        add(UpdateCheckoutEvent(
-          products: cart.products,
-          subtotal: cart.subtotalString,
-          deliveryFee: cart.deliveryFeeString,
-          total: cart.totalString,
-        ));
-      }
-    });
+    _cartSubscription = cartBloc.stream.listen(_cartListener);
 
     on<UpdateCheckoutEvent>(_onUpdateCheckout);
     on<ConfirmCheckoutEvent>(_onConfirmCheckout);
@@ -40,6 +29,19 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   Future<void> close() {
     _cartSubscription.cancel();
     return super.close();
+  }
+
+  void _cartListener(CartState cartState) {
+    if (cartState.status != CartStatus.loaded) return;
+
+    final cart = cartState.cart;
+
+    add(UpdateCheckoutEvent(
+      products: cart.products,
+      subtotal: cart.subtotalString,
+      deliveryFee: cart.deliveryFeeString,
+      total: cart.totalString,
+    ));
   }
 
   void _onUpdateCheckout(

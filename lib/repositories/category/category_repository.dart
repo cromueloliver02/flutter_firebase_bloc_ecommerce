@@ -12,7 +12,7 @@ class CategoryRepository extends BaseCategoryRepository {
   });
 
   @override
-  Stream<List<Category>> fetchAllCategories() {
+  Stream<List<Category>> loadCategories() {
     try {
       return firebaseFirestore
           .collection(kCategoryCollectionName)

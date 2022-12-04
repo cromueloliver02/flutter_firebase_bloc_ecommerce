@@ -17,7 +17,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc({
     required this.productRepository,
   }) : super(ProductState.initial()) {
-    on<FetchProductsEvent>(_onFetchProducts);
+    on<LoadProductsEvent>(_onLoadProducts);
     on<UpdateProductsEvent>(_onUpdateProducts);
   }
 
@@ -27,11 +27,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     return super.close();
   }
 
-  void _onFetchProducts(FetchProductsEvent event, Emitter<ProductState> emit) {
+  void _onLoadProducts(LoadProductsEvent event, Emitter<ProductState> emit) {
     emit(state.copyWith(status: ProductStatus.loading));
 
     try {
-      _productSubscription = productRepository.fetchAllProducts().listen(
+      _productSubscription = productRepository.loadProducts().listen(
         (List<Product> products) {
           add(UpdateProductsEvent(products: products));
         },

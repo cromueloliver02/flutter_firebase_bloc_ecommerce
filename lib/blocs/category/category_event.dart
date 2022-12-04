@@ -7,7 +7,7 @@ abstract class CategoryEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchCategoriesEvent extends CategoryEvent {}
+class LoadCategoriesEvent extends CategoryEvent {}
 
 class UpdateCategoriesEvent extends CategoryEvent {
   final List<models.Category> categories;

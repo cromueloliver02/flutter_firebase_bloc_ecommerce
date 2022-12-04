@@ -35,6 +35,16 @@ class ECMProductCard extends StatelessWidget {
     Cart.addToCart(ctx, product);
   }
 
+  void _removeToWishlist(BuildContext ctx) {
+    ScaffoldMessenger.of(ctx)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(content: Text('Product Removed')),
+      );
+
+    ctx.read<WishlistBloc>().add(RemoveWishlistEvent(product: product));
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -105,7 +115,9 @@ class ECMProductCard extends StatelessWidget {
                             padding: EdgeInsets.only(right: 15),
                             child: SizedBox.square(
                               dimension: 20,
-                              child: CircularProgressIndicator(),
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
                             ),
                           );
                         }
@@ -119,7 +131,7 @@ class ECMProductCard extends StatelessWidget {
                     ),
                     if (isWishList)
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () => _removeToWishlist(context),
                         color: Colors.white,
                         icon: const Icon(Icons.delete),
                       ),

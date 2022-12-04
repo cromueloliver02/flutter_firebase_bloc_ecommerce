@@ -12,7 +12,7 @@ class ProductRepository extends BaseProductRepository {
   });
 
   @override
-  Stream<List<Product>> fetchAllProducts() {
+  Stream<List<Product>> loadProducts() {
     try {
       return firebaseFirestore
           .collection(kProductCollectionName)

@@ -9,19 +9,19 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState.initial()) {
-    on<FetchCartItemsEvent>(_onFetchCartItems);
+    on<LoadCartItemsEvent>(_onLoadCartItems);
     on<AddCartItemEvent>(_onAddCartItem);
     on<RemoveCartItemEvent>(_onRemoveCartItem);
   }
 
-  void _onFetchCartItems(
-    FetchCartItemsEvent event,
+  void _onLoadCartItems(
+    LoadCartItemsEvent event,
     Emitter<CartState> emit,
   ) async {
     emit(state.copyWith(status: CartStatus.loading));
 
     try {
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 1));
 
       emit(state.copyWith(
         status: CartStatus.loaded,

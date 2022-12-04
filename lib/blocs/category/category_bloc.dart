@@ -17,7 +17,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({
     required this.categoryRepository,
   }) : super(CategoryState.initial()) {
-    on<FetchCategoriesEvent>(_onFetchCategories);
+    on<LoadCategoriesEvent>(_onLoadCategories);
     on<UpdateCategoriesEvent>(_onUpdateCategories);
   }
 
@@ -27,15 +27,15 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     return super.close();
   }
 
-  void _onFetchCategories(
-    FetchCategoriesEvent event,
+  void _onLoadCategories(
+    LoadCategoriesEvent event,
     Emitter<CategoryState> emit,
   ) {
     emit(state.copyWith(status: CategoryStatus.loading));
 
     try {
       _categorySubscription =
-          categoryRepository.fetchAllCategories().listen((categories) {
+          categoryRepository.loadCategories().listen((categories) {
         add(UpdateCategoriesEvent(categories: categories));
       });
 

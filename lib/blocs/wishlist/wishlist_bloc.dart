@@ -9,19 +9,19 @@ part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistState.initial()) {
-    on<FetchWishlistEvent>(_onFetchWishlist);
+    on<LoadWishlistEvent>(_onLoadWishlist);
     on<AddWishlistEvent>(_onAddWishlist);
     on<RemoveWishlistEvent>(_onRemoveWishlist);
   }
 
-  void _onFetchWishlist(
-    FetchWishlistEvent event,
+  void _onLoadWishlist(
+    LoadWishlistEvent event,
     Emitter<WishlistState> emit,
   ) async {
     emit(state.copyWith(status: WishlistStatus.loading));
 
     try {
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 1));
 
       emit(state.copyWith(
         status: WishlistStatus.loaded,
