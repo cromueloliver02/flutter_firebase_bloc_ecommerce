@@ -6,15 +6,18 @@ class ECMAppBar extends StatelessWidget {
   const ECMAppBar({
     super.key,
     required this.title,
+    this.automaticallyImplyLeading = true,
   });
 
   final String title;
+  final bool automaticallyImplyLeading;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
       elevation: 0,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      backgroundColor: Colors.transparent,
       title: Container(
         color: Colors.black,
         padding: const EdgeInsets.symmetric(

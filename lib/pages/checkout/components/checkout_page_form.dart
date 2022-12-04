@@ -3,6 +3,7 @@ import 'package:validators/validators.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 import '../../../utils/utils.dart';
 
 class CheckoutPageForm extends StatefulWidget {
@@ -22,7 +23,9 @@ class _CheckoutPageFormState extends State<CheckoutPageForm> {
     setState(() => _autovalidateMode = AutovalidateMode.always);
 
     if (form != null && form.validate()) {
-      ctx.read<CheckoutBloc>().add(ConfirmCheckoutEvent());
+      // ctx.read<CheckoutBloc>().add(ConfirmCheckoutEvent());
+
+      Navigator.pushNamed(context, OrderConfirmationPage.id);
     }
   }
 

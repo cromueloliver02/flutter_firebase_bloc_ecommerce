@@ -4,12 +4,8 @@ import '../../../models/models.dart';
 import '../../../blocs/blocs.dart';
 import '../../../pages/pages.dart';
 
-class CartPageBottomAppBar extends StatelessWidget {
-  const CartPageBottomAppBar({super.key});
-
-  void _goToCheckout(BuildContext ctx) {
-    Navigator.pushNamed(ctx, CheckoutPage.id);
-  }
+class OrderConfirmationPageBottomAppBar extends StatelessWidget {
+  const OrderConfirmationPageBottomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +22,16 @@ class CartPageBottomAppBar extends StatelessWidget {
               selector: (state) => state.cart.products,
               builder: (ctx, products) {
                 return ElevatedButton(
-                  onPressed:
-                      products.isEmpty ? null : () => _goToCheckout(context),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      HomePage.id,
+                      (route) => route.settings.name == SplashPage.id),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     disabledBackgroundColor: Colors.grey,
                   ),
                   child: Text(
-                    'GO TO CHECKOUT',
+                    'GO BACK TO SHOPPING',
                     style: textTheme.headline3,
                   ),
                 );
