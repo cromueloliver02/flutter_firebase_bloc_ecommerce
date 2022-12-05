@@ -13,6 +13,7 @@ class Checkout extends Equatable {
   final String subtotal;
   final String deliveryFee;
   final String total;
+  final PaymentMethod paymentMethod;
 
   const Checkout({
     this.fullName = '',
@@ -25,6 +26,7 @@ class Checkout extends Equatable {
     this.subtotal = '',
     this.deliveryFee = '',
     this.total = '',
+    this.paymentMethod = PaymentMethod.googlePay,
   });
 
   @override
@@ -40,12 +42,13 @@ class Checkout extends Equatable {
       subtotal,
       deliveryFee,
       total,
+      paymentMethod,
     ];
   }
 
   @override
   String toString() {
-    return 'Checkout(fullName: $fullName, email: $email, address: $address, city: $city, country: $country, zipCode: $zipCode, products: $products, subtotal: $subtotal, deliveryFee: $deliveryFee, total: $total)';
+    return 'Checkout(fullName: $fullName, email: $email, address: $address, city: $city, country: $country, zipCode: $zipCode, products: $products, subtotal: $subtotal, deliveryFee: $deliveryFee, total: $total, paymentMethod: $paymentMethod)';
   }
 
   Map<String, dynamic> toMap() {
@@ -64,6 +67,7 @@ class Checkout extends Equatable {
     result.addAll({'subtotal': subtotal});
     result.addAll({'deliveryFee': deliveryFee});
     result.addAll({'total': total});
+    result.addAll({'paymentMethod': paymentMethod});
 
     return result;
   }
@@ -79,6 +83,7 @@ class Checkout extends Equatable {
     String? subtotal,
     String? deliveryFee,
     String? total,
+    PaymentMethod? paymentMethod,
   }) {
     return Checkout(
       fullName: fullName ?? this.fullName,
@@ -91,6 +96,7 @@ class Checkout extends Equatable {
       subtotal: subtotal ?? this.subtotal,
       deliveryFee: deliveryFee ?? this.deliveryFee,
       total: total ?? this.total,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
     );
   }
 }

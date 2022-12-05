@@ -29,10 +29,15 @@ class BlocHandler {
     BlocProvider<CartBloc>(
       create: (ctx) => CartBloc()..add(LoadCartItemsEvent()),
     ),
+    BlocProvider<PaymentBloc>(
+      lazy: false,
+      create: (ctx) => PaymentBloc()..add(LoadPaymentMethod()),
+    ),
     BlocProvider<CheckoutBloc>(
       lazy: false,
       create: (ctx) => CheckoutBloc(
         cartBloc: ctx.read<CartBloc>(),
+        paymentBloc: ctx.read<PaymentBloc>(),
         checkoutRepository: ctx.read<CheckoutRepository>(),
       ),
     ),

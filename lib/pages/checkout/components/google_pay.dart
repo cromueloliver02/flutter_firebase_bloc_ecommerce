@@ -4,8 +4,8 @@ import 'package:pay/pay.dart';
 
 import '../../../models/models.dart';
 
-class ApplePay extends StatelessWidget {
-  const ApplePay({
+class GooglePay extends StatelessWidget {
+  const GooglePay({
     super.key,
     required this.products,
     required this.total,
@@ -16,7 +16,7 @@ class ApplePay extends StatelessWidget {
   final String total;
   final String deliveryFee;
 
-  void _onApplePayResult(Map<String, dynamic> map) {
+  void _onGooglePayResult(Map<String, dynamic> map) {
     if (kDebugMode) print(map);
   }
 
@@ -46,11 +46,10 @@ class ApplePay extends StatelessWidget {
       ),
     ]);
 
-    return ApplePayButton(
-      paymentConfigurationAsset: 'payment_profile_apple_pay.json',
-      onPaymentResult: _onApplePayResult,
-      style: ApplePayButtonStyle.black,
-      type: ApplePayButtonType.inStore,
+    return GooglePayButton(
+      paymentConfigurationAsset: 'payment_profile_google_pay.json',
+      onPaymentResult: _onGooglePayResult,
+      type: GooglePayButtonType.pay,
       loadingIndicator: const CircularProgressIndicator(),
       paymentItems: paymentItems,
     );

@@ -18,6 +18,7 @@ class UpdateCheckoutEvent extends CheckoutEvent {
   final String? subtotal;
   final String? deliveryFee;
   final String? total;
+  final PaymentMethod? paymentMethod;
 
   const UpdateCheckoutEvent({
     this.fullName,
@@ -30,10 +31,17 @@ class UpdateCheckoutEvent extends CheckoutEvent {
     this.subtotal,
     this.deliveryFee,
     this.total,
+    this.paymentMethod,
   });
 
   @override
-  List<Object?> get props => [products, subtotal, deliveryFee, total];
+  List<Object?> get props => [
+        products,
+        subtotal,
+        deliveryFee,
+        total,
+        paymentMethod,
+      ];
 }
 
 class ConfirmCheckoutEvent extends CheckoutEvent {}
