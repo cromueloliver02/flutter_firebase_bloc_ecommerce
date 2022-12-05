@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 
@@ -23,16 +25,18 @@ class SelectPaymentMethodPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            RawApplePayButton(
-              style: ApplePayButtonStyle.black,
-              type: ApplePayButtonType.inStore,
-              onPressed: () {},
-            ),
+            if (Platform.isIOS)
+              RawApplePayButton(
+                style: ApplePayButtonStyle.black,
+                type: ApplePayButtonType.inStore,
+                onPressed: () {},
+              ),
             const SizedBox(height: 10),
-            RawGooglePayButton(
-              type: GooglePayButtonType.subscribe,
-              onPressed: () {},
-            ),
+            if (Platform.isAndroid)
+              RawGooglePayButton(
+                type: GooglePayButtonType.subscribe,
+                onPressed: () {},
+              ),
           ],
         ),
       ),

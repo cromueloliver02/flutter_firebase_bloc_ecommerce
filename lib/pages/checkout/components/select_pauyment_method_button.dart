@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_bloc_ecommerce/pages/select_payment_method/select_payment_method_page.dart';
 
 class SelectPaymentMethodButton extends StatelessWidget {
   const SelectPaymentMethodButton({super.key});
@@ -8,7 +9,7 @@ class SelectPaymentMethodButton extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(context, SelectPaymentMethodPage.id),
       child: Container(
         color: Colors.black,
         padding: const EdgeInsets.symmetric(
