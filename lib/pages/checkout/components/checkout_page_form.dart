@@ -3,8 +3,10 @@ import 'package:validators/validators.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../widgets/widgets.dart';
-import '../../../pages/pages.dart';
+// import '../../../pages/pages.dart';
 import '../../../utils/utils.dart';
+import 'apple_pay.dart';
+import './select_pauyment_method_button.dart';
 
 class CheckoutPageForm extends StatefulWidget {
   const CheckoutPageForm({super.key});
@@ -17,17 +19,17 @@ class _CheckoutPageFormState extends State<CheckoutPageForm> {
   final _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
-  void _confirmCheckout(BuildContext ctx) {
-    final FormState? form = _formKey.currentState;
+  // void _confirmCheckout(BuildContext ctx) {
+  //   final FormState? form = _formKey.currentState;
 
-    setState(() => _autovalidateMode = AutovalidateMode.always);
+  //   setState(() => _autovalidateMode = AutovalidateMode.always);
 
-    if (form != null && form.validate()) {
-      // ctx.read<CheckoutBloc>().add(ConfirmCheckoutEvent());
+  //   if (form != null && form.validate()) {
+  //     // ctx.read<CheckoutBloc>().add(ConfirmCheckoutEvent());
 
-      Navigator.pushNamed(context, OrderConfirmationPage.id);
-    }
-  }
+  //     Navigator.pushNamed(context, OrderConfirmationPage.id);
+  //   }
+  // }
 
   void _checkoutListener(BuildContext ctx, CheckoutState state) {
     if (state.status == CheckoutStatus.error) {
@@ -144,6 +146,8 @@ class _CheckoutPageFormState extends State<CheckoutPageForm> {
                     validator: _zipCodeValidator,
                   ),
                   const SizedBox(height: 25),
+                  const SelectPaymentMethodButton(),
+                  const SizedBox(height: 25),
                   Text(
                     'ORDER SUMMARY',
                     style: textTheme.headline3,
@@ -153,26 +157,32 @@ class _CheckoutPageFormState extends State<CheckoutPageForm> {
                   BlocConsumer<CheckoutBloc, CheckoutState>(
                     listener: _checkoutListener,
                     builder: (ctx, state) {
-                      final status = state.status;
+                      // final status = state.status;
 
-                      return ElevatedButton(
-                        onPressed: status == CheckoutStatus.submitting
-                            ? null
-                            : () => _confirmCheckout(ctx),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          disabledBackgroundColor: Colors.black12,
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                        ),
-                        child: Text(
-                          status == CheckoutStatus.submitting
-                              ? 'SUBMITTING...'
-                              : 'ORDER NOW',
-                          style: textTheme.headline3!.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
+                      return ApplePay(
+                        products: state.checkout.products,
+                        total: state.checkout.total,
+                        deliveryFee: state.checkout.deliveryFee,
                       );
+
+                      // return ElevatedButton(
+                      //   onPressed: status == CheckoutStatus.submitting
+                      //       ? null
+                      //       : () => _confirmCheckout(ctx),
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: Colors.black,
+                      //     disabledBackgroundColor: Colors.black12,
+                      //     padding: const EdgeInsets.symmetric(vertical: 8),
+                      //   ),
+                      //   child: Text(
+                      //     status == CheckoutStatus.submitting
+                      //         ? 'SUBMITTING...'
+                      //         : 'ORDER NOW',
+                      //     style: textTheme.headline3!.copyWith(
+                      //       color: Colors.white,
+                      //     ),
+                      //   ),
+                      // );
                     },
                   )
                 ],

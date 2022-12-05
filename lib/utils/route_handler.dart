@@ -13,6 +13,7 @@ class RouteHandler {
     WishlistPage.id: (ctx) => const WishlistPage(),
     CheckoutPage.id: (ctx) => const CheckoutPage(),
     OrderConfirmationPage.id: (ctx) => const OrderConfirmationPage(),
+    SelectPaymentMethodPage.id: (ctx) => const SelectPaymentMethodPage(),
   };
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {

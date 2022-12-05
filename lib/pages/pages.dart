@@ -7,4 +7,5 @@ export 'wishlist/wishlist_page.dart';
 export 'catalog/catalog_page.dart';
 export 'checkout/checkout_page.dart';
 export 'order_confirmation/order_confirmation_page.dart';
+export 'select_payment_method/select_payment_method_page.dart';
 export 'not_found/not_found_page.dart';

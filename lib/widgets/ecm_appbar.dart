@@ -6,10 +6,12 @@ class ECMAppBar extends StatelessWidget {
   const ECMAppBar({
     super.key,
     required this.title,
+    this.showWishlistButton = true,
     this.automaticallyImplyLeading = true,
   });
 
   final String title;
+  final bool showWishlistButton;
   final bool automaticallyImplyLeading;
 
   @override
@@ -34,10 +36,11 @@ class ECMAppBar extends StatelessWidget {
       ),
       iconTheme: const IconThemeData(color: Colors.black),
       actions: [
-        IconButton(
-          onPressed: () => Navigator.pushNamed(context, WishlistPage.id),
-          icon: const Icon(Icons.favorite),
-        ),
+        if (showWishlistButton)
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, WishlistPage.id),
+            icon: const Icon(Icons.favorite),
+          ),
       ],
     );
   }

@@ -40,6 +40,7 @@ dependencies:
    flutter_bloc: ^8.1.1
    flutter_svg: ^1.1.6
    lottie: ^2.0.0
+   pay: ^1.0.11
    validators: ^3.0.0
 
 dev_dependencies:
@@ -57,6 +58,7 @@ flutter:
    uses-material-design: true
    # To add assets to your application, add an assets section, like this:
    assets:
+      - assets/
       - assets/images/
       - assets/svgs/
    # An image asset can refer to one or more resolution-specific "variants", see
