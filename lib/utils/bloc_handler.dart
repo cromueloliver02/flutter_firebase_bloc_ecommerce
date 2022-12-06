@@ -1,15 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../cubits/cubits.dart';
 import '../repositories/repositories.dart';
 import '../blocs/blocs.dart';
+import '../cubits/cubits.dart';
 
 class BlocHandler {
   final List<RepositoryProvider> repositoryProviders = [
     RepositoryProvider<AuthRepository>(
       create: (ctx) => AuthRepository(
         auth: FirebaseAuth.instance,
+        firestore: FirebaseFirestore.instance,
       ),
     ),
     RepositoryProvider<CategoryRepository>(
@@ -40,6 +41,11 @@ class BlocHandler {
     ),
     BlocProvider<SignInCubit>(
       create: (ctx) => SignInCubit(
+        authRepository: ctx.read<AuthRepository>(),
+      ),
+    ),
+    BlocProvider<SignUpCubit>(
+      create: (ctx) => SignUpCubit(
         authRepository: ctx.read<AuthRepository>(),
       ),
     ),

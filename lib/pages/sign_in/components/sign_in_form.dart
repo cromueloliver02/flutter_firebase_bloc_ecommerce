@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
+import '../../../pages/pages.dart';
 import '../../../utils/utils.dart';
 
 class SignInForm extends StatefulWidget {
@@ -27,10 +28,20 @@ class _SignInFormState extends State<SignInForm> {
 
     form.save();
 
-    debugPrint(_email);
-    debugPrint(_password);
+    ctx.read<SignInCubit>().signIn(
+          email: _email!,
+          password: _password!,
+        );
+  }
 
-    ctx.read<SignInCubit>().signIn(_email!, _password!);
+  void _goToSignUpPage(BuildContext ctx) {
+    Navigator.pushReplacementNamed(ctx, SignUpPage.id);
+  }
+
+  void _signInListener(BuildContext ctx, SignInState state) {
+    if (state.status == SignInStatus.error) {
+      showErrorDialog(ctx, state.error);
+    }
   }
 
   @override
@@ -57,19 +68,13 @@ class _SignInFormState extends State<SignInForm> {
           ),
           const SizedBox(height: 30),
           BlocConsumer<SignInCubit, SignInState>(
-            listener: (ctx, state) {
-              if (state.status == SignInStatus.error) {
-                showErrorDialog(ctx, state.error);
-              }
-            },
-            builder: (ctx, state) {
-              return ECMButton(
-                labelText: 'Sign In',
-                onPressed: state.status == SignInStatus.submitting
-                    ? null
-                    : () => _signin(context),
-              );
-            },
+            listener: _signInListener,
+            builder: (ctx, state) => ECMButton(
+              labelText: 'Sign In',
+              onPressed: state.status == SignInStatus.submitting
+                  ? null
+                  : () => _signin(context),
+            ),
           ),
           const SizedBox(height: 5),
           ECMButton(
@@ -77,6 +82,16 @@ class _SignInFormState extends State<SignInForm> {
             foregroundColor: Colors.black,
             backgroundColor: Colors.white,
             onPressed: () {},
+          ),
+          const SizedBox(height: 10),
+          TextButton(
+            onPressed: () => _goToSignUpPage(context),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              textStyle: const TextStyle(fontSize: 18),
+            ),
+            child: const Text('Already have an account? Sign up!'),
           ),
         ],
       ),

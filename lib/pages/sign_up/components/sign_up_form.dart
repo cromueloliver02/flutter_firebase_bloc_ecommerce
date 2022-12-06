@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../utils/utils.dart';
+import '../../pages.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({
-    Key? key,
-  }) : super(key: key);
+  const SignUpForm({super.key});
 
   @override
   State<SignUpForm> createState() => _SignInFormState();
@@ -22,7 +22,7 @@ class _SignInFormState extends State<SignUpForm> {
     return confirmPasswordValidator(controller, value);
   }
 
-  void _signin() {
+  void _signUp(BuildContext ctx) {
     final form = _formKey.currentState;
 
     setState(() => _autovalidateMode = AutovalidateMode.always);
@@ -31,13 +31,25 @@ class _SignInFormState extends State<SignUpForm> {
 
     form.save();
 
-    debugPrint(_firstName);
-    debugPrint(_lastName);
-    debugPrint(_city);
-    debugPrint(_country);
-    debugPrint(_zipCode);
-    debugPrint(_email);
-    debugPrint(_password);
+    ctx.read<SignUpCubit>().signUp(
+          firstName: _firstName!,
+          lastName: _lastName!,
+          city: _city!,
+          country: _country!,
+          zipCode: _zipCode!,
+          email: _email!,
+          password: _password!,
+        );
+  }
+
+  void _goToSignInPage(BuildContext ctx) {
+    Navigator.pushReplacementNamed(ctx, SignInPage.id);
+  }
+
+  void _signUpListener(BuildContext ctx, SignUpState state) {
+    if (state.status == SignUpStatus.error) {
+      showErrorDialog(ctx, state.error);
+    }
   }
 
   @override
@@ -101,9 +113,24 @@ class _SignInFormState extends State<SignUpForm> {
             validator: _confirmPasswordValidator,
           ),
           const SizedBox(height: 30),
-          ECMButton(
-            labelText: 'Sign Up',
-            onPressed: _signin,
+          BlocConsumer<SignUpCubit, SignUpState>(
+            listener: _signUpListener,
+            builder: (ctx, state) => ECMButton(
+              labelText: 'Sign Up',
+              onPressed: state.status == SignUpStatus.submitting
+                  ? null
+                  : () => _signUp(ctx),
+            ),
+          ),
+          const SizedBox(height: 10),
+          TextButton(
+            onPressed: () => _goToSignInPage(context),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              textStyle: const TextStyle(fontSize: 18),
+            ),
+            child: const Text('Don\'t have an account yet? Sign in!'),
           ),
         ],
       ),

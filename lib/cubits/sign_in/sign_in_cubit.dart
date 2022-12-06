@@ -14,11 +14,14 @@ class SignInCubit extends Cubit<SignInState> {
     required this.authRepository,
   }) : super(SignInState.initial());
 
-  void signIn(String email, String password) async {
+  void signIn({
+    required String email,
+    required String password,
+  }) async {
     emit(state.copyWith(status: SignInStatus.submitting));
 
     try {
-      await authRepository.signIn(email, password);
+      await authRepository.signIn(email: email, password: password);
 
       emit(state.copyWith(status: SignInStatus.success));
     } on CustomError catch (err) {
