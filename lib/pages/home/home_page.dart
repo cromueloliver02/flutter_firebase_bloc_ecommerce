@@ -19,46 +19,52 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: ECMAppBar(title: 'Zero To Unicorn'),
-      ),
-      bottomNavigationBar: const ECMBottomAppBar(),
-      body: ListView(
-        children: [
-          BlocConsumer<CategoryBloc, CategoryState>(
-            listener: _categoryListener,
-            builder: (ctx, state) {
-              final CategoryStatus status = state.status;
-
-              if (status == CategoryStatus.initial) {
-                return const SizedBox.shrink();
-              }
-
-              if (status == CategoryStatus.loading) {
-                return const SizedBox(
-                  height: 300,
-                  child: ECMLoading(),
-                );
-              }
-
-              if (status == CategoryStatus.error) {
-                return const SizedBox(
-                  height: 300,
-                  child: ECMErrorMessage(),
-                );
-              }
-
-              final categories = state.categories;
-
-              return ECMHeroCarouselCategories(categories: categories);
-            },
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: ECMAppBar(
+            title: 'Zero To Unicorn',
+            automaticallyImplyLeading: false,
           ),
-          const RecommendedSection(),
-          const SizedBox(height: 10),
-          const MostPopularSection(),
-        ],
+        ),
+        bottomNavigationBar: const ECMBottomAppBar(),
+        body: ListView(
+          children: [
+            BlocConsumer<CategoryBloc, CategoryState>(
+              listener: _categoryListener,
+              builder: (ctx, state) {
+                final CategoryStatus status = state.status;
+
+                if (status == CategoryStatus.initial) {
+                  return const SizedBox.shrink();
+                }
+
+                if (status == CategoryStatus.loading) {
+                  return const SizedBox(
+                    height: 300,
+                    child: ECMLoading(),
+                  );
+                }
+
+                if (status == CategoryStatus.error) {
+                  return const SizedBox(
+                    height: 300,
+                    child: ECMErrorMessage(),
+                  );
+                }
+
+                final categories = state.categories;
+
+                return ECMHeroCarouselCategories(categories: categories);
+              },
+            ),
+            const RecommendedSection(),
+            const SizedBox(height: 10),
+            const MostPopularSection(),
+          ],
+        ),
       ),
     );
   }
