@@ -20,11 +20,16 @@ class BlocHandler {
         firebaseFirestore: FirebaseFirestore.instance,
       ),
     ),
+    RepositoryProvider<LocalStorageRepository>(
+      create: (ctx) => LocalStorageRepository(),
+    ),
   ];
 
   final List<BlocProvider> blocProviders = [
     BlocProvider<WishlistBloc>(
-      create: (ctx) => WishlistBloc()..add(LoadWishlistEvent()),
+      create: (ctx) => WishlistBloc(
+        localStorageRepository: ctx.read<LocalStorageRepository>(),
+      )..add(LoadWishlistEvent()),
     ),
     BlocProvider<CartBloc>(
       create: (ctx) => CartBloc()..add(LoadCartItemsEvent()),
