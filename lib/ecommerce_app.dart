@@ -18,7 +18,7 @@ class EcommerceApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: _blocHandler.blocProviders,
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Ecommerce',
           debugShowCheckedModeBanner: false,
           theme: _themeHandler.theme,
           initialRoute: SplashPage.id,
