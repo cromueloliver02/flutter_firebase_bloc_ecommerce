@@ -6,9 +6,9 @@ class CustomError extends Equatable {
   final String plugin;
 
   const CustomError({
-    this.code = '',
-    this.message = '',
-    this.plugin = '',
+    this.code = 'Exception',
+    this.message = 'Something went wrong',
+    this.plugin = 'flutter_error',
   });
 
   @override

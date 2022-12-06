@@ -169,27 +169,29 @@ class ECMProductCard extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8),
                 child: Row(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(color: Colors.white),
-                        ),
-                        Text(
-                          '\$${product.price}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: Colors.white),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(color: Colors.white),
+                          ),
+                          Text(
+                            '\$${product.price}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
-                    const Spacer(),
                     BlocSelector<CartBloc, CartState, CartStatus>(
                       selector: (state) => state.status,
                       builder: (ctx, status) {
@@ -208,6 +210,7 @@ class ECMProductCard extends StatelessWidget {
                         return IconButton(
                           onPressed: () => _addToCart(context),
                           color: Colors.white,
+                          iconSize: 20,
                           icon: const Icon(Icons.add_circle),
                         );
                       },

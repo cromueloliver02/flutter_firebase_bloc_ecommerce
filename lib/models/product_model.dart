@@ -20,6 +20,8 @@ class Product extends Equatable {
   final bool isRecommended;
   @HiveField(6)
   final bool isPopular;
+  @HiveField(7)
+  final String? description;
 
   const Product({
     required this.id,
@@ -29,10 +31,11 @@ class Product extends Equatable {
     required this.price,
     required this.isRecommended,
     required this.isPopular,
+    this.description,
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,
@@ -41,12 +44,13 @@ class Product extends Equatable {
       price,
       isRecommended,
       isPopular,
+      description,
     ];
   }
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, category: $category, imageUrl: $imageUrl, price: $price, isRecommended: $isRecommended, isPopular: $isPopular)';
+    return 'Product(id: $id, name: $name, category: $category, imageUrl: $imageUrl, price: $price, isRecommended: $isRecommended, isPopular: $isPopular, description: $description)';
   }
 
   factory Product.fromSnapshot(DocumentSnapshot doc) {
@@ -60,6 +64,7 @@ class Product extends Equatable {
       price: map['price']?.toDouble() ?? 0.0,
       isRecommended: map['isRecommended'] ?? false,
       isPopular: map['isPopular'] ?? false,
+      description: map['description'],
     );
   }
 

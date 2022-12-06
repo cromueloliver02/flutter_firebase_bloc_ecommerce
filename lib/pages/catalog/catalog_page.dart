@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../blocs/blocs.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
@@ -15,30 +16,46 @@ class CatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Product> categoryProds =
-        Product.products.where((d) => d.category == category.name).toList();
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ECMAppBar(title: category.name),
       ),
       bottomNavigationBar: const ECMBottomAppBar(),
-      body: GridView.builder(
-        itemCount: categoryProds.length,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 16,
-        ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.15,
-        ),
-        itemBuilder: (ctx, idx) => Center(
-          child: ECMProductCard.catalog(
-            product: categoryProds[idx],
-          ),
-        ),
+      body: BlocBuilder<ProductBloc, ProductState>(
+        builder: (ctx, state) {
+          if (state.status == ProductStatus.initial) {
+            return const SizedBox.shrink();
+          }
+
+          if (state.status == ProductStatus.loading) {
+            return const ECMLoading();
+          }
+
+          if (state.status == ProductStatus.error) {
+            return const ECMErrorMessage();
+          }
+
+          final categoryProducts =
+              state.products.where((d) => d.category == category.name).toList();
+
+          return GridView.builder(
+            itemCount: categoryProducts.length,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 16,
+            ),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.15,
+            ),
+            itemBuilder: (ctx, idx) => Center(
+              child: ECMProductCard.catalog(
+                product: categoryProducts[idx],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
