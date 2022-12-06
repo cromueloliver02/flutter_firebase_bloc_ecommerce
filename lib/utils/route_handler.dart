@@ -7,6 +7,7 @@ import '../pages/pages.dart';
 class RouteHandler {
   final Map<String, WidgetBuilder> routes = {
     SplashPage.id: (ctx) => const SplashPage(),
+    SignInPage.id: (ctx) => const SignInPage(),
     HomePage.id: (ctx) => const HomePage(),
     CartPage.id: (ctx) => const CartPage(),
     UserPage.id: (ctx) => const UserPage(),

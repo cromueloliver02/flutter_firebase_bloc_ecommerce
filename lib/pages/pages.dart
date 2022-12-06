@@ -1,4 +1,5 @@
 export 'splash/splash_page.dart';
+export 'sign_in/sign_in_page.dart';
 export 'home/home_page.dart';
 export 'cart/cart_page.dart';
 export 'user/user_page.dart';
