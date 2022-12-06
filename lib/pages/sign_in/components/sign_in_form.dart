@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../cubits/cubits.dart';
 import '../../../widgets/widgets.dart';
 import '../../../utils/utils.dart';
 
@@ -17,7 +18,7 @@ class _SignInFormState extends State<SignInForm> {
   String? _email, _password;
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
-  void _signin() {
+  void _signin(BuildContext ctx) {
     final form = _formKey.currentState;
 
     setState(() => _autovalidateMode = AutovalidateMode.always);
@@ -28,6 +29,8 @@ class _SignInFormState extends State<SignInForm> {
 
     debugPrint(_email);
     debugPrint(_password);
+
+    ctx.read<SignInCubit>().signIn(_email!, _password!);
   }
 
   @override
@@ -53,9 +56,20 @@ class _SignInFormState extends State<SignInForm> {
             onSaved: (value) => _password = value!,
           ),
           const SizedBox(height: 30),
-          ECMButton(
-            labelText: 'Sign In',
-            onPressed: _signin,
+          BlocConsumer<SignInCubit, SignInState>(
+            listener: (ctx, state) {
+              if (state.status == SignInStatus.error) {
+                showErrorDialog(ctx, state.error);
+              }
+            },
+            builder: (ctx, state) {
+              return ECMButton(
+                labelText: 'Sign In',
+                onPressed: state.status == SignInStatus.submitting
+                    ? null
+                    : () => _signin(context),
+              );
+            },
           ),
           const SizedBox(height: 5),
           ECMButton(

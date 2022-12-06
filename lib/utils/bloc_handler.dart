@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../cubits/cubits.dart';
 import '../repositories/repositories.dart';
 import '../blocs/blocs.dart';
 
@@ -36,6 +37,11 @@ class BlocHandler {
       create: (ctx) => AuthBloc(
         authRepository: ctx.read<AuthRepository>(),
       )..add(InitializeAuthEvent()),
+    ),
+    BlocProvider<SignInCubit>(
+      create: (ctx) => SignInCubit(
+        authRepository: ctx.read<AuthRepository>(),
+      ),
     ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc(
