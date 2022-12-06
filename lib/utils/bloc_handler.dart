@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../repositories/repositories.dart';
@@ -5,6 +6,11 @@ import '../blocs/blocs.dart';
 
 class BlocHandler {
   final List<RepositoryProvider> repositoryProviders = [
+    RepositoryProvider<AuthRepository>(
+      create: (ctx) => AuthRepository(
+        auth: FirebaseAuth.instance,
+      ),
+    ),
     RepositoryProvider<CategoryRepository>(
       create: (ctx) => CategoryRepository(
         firebaseFirestore: FirebaseFirestore.instance,
@@ -26,6 +32,11 @@ class BlocHandler {
   ];
 
   final List<BlocProvider> blocProviders = [
+    BlocProvider<AuthBloc>(
+      create: (ctx) => AuthBloc(
+        authRepository: ctx.read<AuthRepository>(),
+      )..add(InitializeAuthEvent()),
+    ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc(
         localStorageRepository: ctx.read<LocalStorageRepository>(),

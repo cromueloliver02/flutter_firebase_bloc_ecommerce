@@ -36,9 +36,9 @@ class _SignInFormState extends State<SignInForm> {
       key: _formKey,
       autovalidateMode: _autovalidateMode,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 100),
           ECMSignTextFormField(
             hintText: 'Email',
             keyboardType: TextInputType.emailAddress,
