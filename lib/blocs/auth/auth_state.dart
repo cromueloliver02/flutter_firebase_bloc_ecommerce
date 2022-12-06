@@ -3,15 +3,18 @@ part of 'auth_bloc.dart';
 class AuthState extends Equatable {
   final AuthStatus status;
   final fb_auth.User? user;
+  final CustomError error;
 
   const AuthState({
     required this.status,
     this.user,
+    required this.error,
   });
 
   factory AuthState.initial() {
     return const AuthState(
       status: AuthStatus.unknown,
+      error: CustomError(),
     );
   }
 
@@ -24,10 +27,12 @@ class AuthState extends Equatable {
   AuthState copyWith({
     AuthStatus? status,
     fb_auth.User? user,
+    CustomError? error,
   }) {
     return AuthState(
       status: status ?? this.status,
       user: user ?? this.user,
+      error: error ?? this.error,
     );
   }
 }

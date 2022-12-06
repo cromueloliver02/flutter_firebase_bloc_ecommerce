@@ -81,21 +81,5 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<void> signOut() async {
-    try {
-      await auth.signOut();
-    } on FirebaseException catch (err) {
-      throw CustomError(
-        code: err.code,
-        message: err.message!,
-        plugin: err.plugin,
-      );
-    } catch (err) {
-      throw CustomError(
-        code: 'Exception',
-        message: err.toString(),
-        plugin: 'flutter_error/server_error',
-      );
-    }
-  }
+  void signOut() => auth.signOut();
 }
