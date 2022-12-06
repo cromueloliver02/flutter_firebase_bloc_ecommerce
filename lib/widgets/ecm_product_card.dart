@@ -6,18 +6,57 @@ import '../blocs/blocs.dart';
 import '../pages/pages.dart';
 
 class ECMProductCard extends StatelessWidget {
-  const ECMProductCard({
-    Key? key,
-    required this.product,
-    this.widthFactor = 2.5,
-    this.leftPosition = 0,
-    this.isWishList = false,
-  }) : super(key: key);
-
   final Product product;
+  final int quantity;
   final double widthFactor;
   final double leftPosition;
+  final bool isCatalog;
   final bool isWishList;
+  final bool isCart;
+
+  const ECMProductCard({
+    super.key,
+    required this.product,
+    this.quantity = 0,
+    this.widthFactor = 2.5,
+    this.leftPosition = 0,
+    this.isCatalog = false,
+    this.isWishList = false,
+    this.isCart = false,
+  });
+
+  const ECMProductCard.catalog({
+    super.key,
+    required this.product,
+    this.quantity = 0,
+    this.widthFactor = 2.2,
+    this.leftPosition = 0,
+    this.isCatalog = true,
+    this.isWishList = false,
+    this.isCart = false,
+  });
+
+  const ECMProductCard.wishlist({
+    super.key,
+    required this.product,
+    this.quantity = 0,
+    this.widthFactor = 1.1,
+    this.leftPosition = 100,
+    this.isCatalog = false,
+    this.isWishList = true,
+    this.isCart = false,
+  });
+
+  const ECMProductCard.cart({
+    super.key,
+    required this.product,
+    required this.quantity,
+    this.widthFactor = 2.5,
+    this.leftPosition = 0,
+    this.isCatalog = false,
+    this.isWishList = false,
+    this.isCart = true,
+  });
 
   void _onTap(BuildContext ctx) => Navigator.pushNamed(
         ctx,
@@ -48,6 +87,50 @@ class ECMProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
+
+    if (isCart) {
+      return Row(
+        children: [
+          CachedNetworkImage(
+            imageUrl: product.imageUrl,
+            width: 100,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.name,
+                  style: textTheme.headline5,
+                ),
+                Text(
+                  '${product.price}',
+                  style: textTheme.headline6,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () => Cart.removeToCart(context, product),
+                icon: const Icon(Icons.remove_circle),
+              ),
+              Text('$quantity', style: textTheme.headline5),
+              IconButton(
+                onPressed: () => Cart.addToCart(context, product),
+                icon: const Icon(Icons.add_circle),
+              ),
+            ],
+          ),
+        ],
+      );
+    }
 
     return InkWell(
       onTap: () => _onTap(context),

@@ -48,7 +48,7 @@ class CartProductList extends StatelessWidget {
           child: ListView.separated(
             itemCount: cartMap.length,
             separatorBuilder: (ctx, idx) => const SizedBox(height: 10),
-            itemBuilder: (ctx, idx) => ECMCartProductCard(
+            itemBuilder: (ctx, idx) => ECMProductCard.cart(
               product: cartMap.keys.elementAt(idx),
               quantity: cartMap.values.elementAt(idx),
             ),

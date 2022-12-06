@@ -55,11 +55,8 @@ class WishlistPage extends StatelessWidget {
               childAspectRatio: 2.5,
             ),
             itemBuilder: (ctx, idx) => Center(
-              child: ECMProductCard(
+              child: ECMProductCard.wishlist(
                 product: wishlistProducts[idx],
-                widthFactor: 1.1,
-                leftPosition: 100,
-                isWishList: true,
               ),
             ),
           );

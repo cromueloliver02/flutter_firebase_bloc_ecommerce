@@ -35,9 +35,8 @@ class CatalogPage extends StatelessWidget {
           childAspectRatio: 1.15,
         ),
         itemBuilder: (ctx, idx) => Center(
-          child: ECMProductCard(
+          child: ECMProductCard.catalog(
             product: categoryProds[idx],
-            widthFactor: 2.2,
           ),
         ),
       ),
