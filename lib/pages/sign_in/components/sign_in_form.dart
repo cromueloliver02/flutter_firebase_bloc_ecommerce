@@ -52,7 +52,7 @@ class _SignInFormState extends State<SignInForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 200),
           ECMSignTextFormField(
             hintText: 'Email',
             keyboardType: TextInputType.emailAddress,
