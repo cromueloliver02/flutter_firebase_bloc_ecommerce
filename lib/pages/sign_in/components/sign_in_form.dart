@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:validators/validators.dart';
 
 import '../../../widgets/widgets.dart';
+import '../../../utils/utils.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -16,30 +16,6 @@ class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
   String? _email, _password;
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
-
-  String? _emailValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Email is required';
-    }
-
-    if (!isEmail(value)) {
-      return 'Email is invalid';
-    }
-
-    return null;
-  }
-
-  String? _passwordValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Password is required';
-    }
-
-    if (value.trim().length < 6) {
-      return 'Password should be at least 6 characters long';
-    }
-
-    return null;
-  }
 
   void _signin() {
     final form = _formKey.currentState;
@@ -66,14 +42,14 @@ class _SignInFormState extends State<SignInForm> {
           ECMSignTextFormField(
             hintText: 'Email',
             keyboardType: TextInputType.emailAddress,
-            validator: _emailValidator,
+            validator: emailValidator,
             onSaved: (value) => _email = value!,
           ),
           const SizedBox(height: 15),
           ECMSignTextFormField(
             hintText: 'Password',
             obscureText: true,
-            validator: _passwordValidator,
+            validator: passwordValidator,
             onSaved: (value) => _password = value!,
           ),
           const SizedBox(height: 30),

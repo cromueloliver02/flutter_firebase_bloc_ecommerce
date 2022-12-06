@@ -4,6 +4,7 @@ class ECMSignTextFormField extends StatelessWidget {
   const ECMSignTextFormField({
     super.key,
     required this.hintText,
+    this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.validator,
@@ -11,6 +12,7 @@ class ECMSignTextFormField extends StatelessWidget {
   });
 
   final String hintText;
+  final TextEditingController? controller;
   final bool obscureText;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
@@ -21,6 +23,7 @@ class ECMSignTextFormField extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return TextFormField(
+      controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
       style: textTheme.bodyText1!.copyWith(
