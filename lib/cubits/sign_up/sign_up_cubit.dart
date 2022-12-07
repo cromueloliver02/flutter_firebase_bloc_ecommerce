@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../repositories/repositories.dart';
 import '../../models/models.dart';
@@ -19,7 +19,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String lastName,
     required String city,
     required String country,
-    required String zipCode,
+    required int zipCode,
     required String email,
     required String password,
   }) async {

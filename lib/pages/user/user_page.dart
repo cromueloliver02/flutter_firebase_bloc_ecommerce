@@ -10,6 +10,8 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
@@ -18,17 +20,45 @@ class UserPage extends StatelessWidget {
       bottomNavigationBar: const ECMBottomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ECMButton(
-              labelText: 'Logout',
-              onPressed: () {
-                context.read<AuthBloc>().add(SignOutRequestedEvent());
-              },
-            ),
-          ],
+        child: BlocBuilder<UserBloc, UserState>(
+          builder: (ctx, state) {
+            final user = state.user;
+
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Profile Info',
+                  style: textTheme.headline3,
+                ),
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(Icons.account_box),
+                  title: Text('${user.firstName} ${user.lastName}'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.location_city),
+                  title: Text(user.city),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.flag),
+                  title: Text(user.country),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.gps_fixed),
+                  title: Text('${user.zipCode}'),
+                ),
+                const Spacer(),
+                ECMButton(
+                  labelText: 'Logout',
+                  onPressed: () {
+                    context.read<AuthBloc>().add(SignOutRequestedEvent());
+                  },
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

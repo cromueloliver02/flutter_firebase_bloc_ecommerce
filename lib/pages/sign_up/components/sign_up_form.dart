@@ -36,7 +36,7 @@ class _SignInFormState extends State<SignUpForm> {
           lastName: _lastName!,
           city: _city!,
           country: _country!,
-          zipCode: _zipCode!,
+          zipCode: int.parse(_zipCode!),
           email: _email!,
           password: _password!,
         );

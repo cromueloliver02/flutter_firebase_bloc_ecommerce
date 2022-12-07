@@ -45,7 +45,7 @@ class AuthRepository extends BaseAuthRepository {
     required String lastName,
     required String city,
     required String country,
-    required String zipCode,
+    required int zipCode,
     required String email,
     required String password,
   }) async {

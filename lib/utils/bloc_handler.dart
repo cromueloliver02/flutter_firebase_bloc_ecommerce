@@ -13,6 +13,11 @@ class BlocHandler {
         firestore: FirebaseFirestore.instance,
       ),
     ),
+    RepositoryProvider<UserRepository>(
+      create: (ctx) => UserRepository(
+        firestore: FirebaseFirestore.instance,
+      ),
+    ),
     RepositoryProvider<CategoryRepository>(
       create: (ctx) => CategoryRepository(
         firebaseFirestore: FirebaseFirestore.instance,
@@ -48,6 +53,13 @@ class BlocHandler {
       create: (ctx) => SignUpCubit(
         authRepository: ctx.read<AuthRepository>(),
       ),
+    ),
+    BlocProvider<UserBloc>(
+      lazy: false,
+      create: (ctx) => UserBloc(
+        authBloc: ctx.read<AuthBloc>(),
+        userRepository: ctx.read<UserRepository>(),
+      )..add(StartUserEvent()),
     ),
     BlocProvider<WishlistBloc>(
       create: (ctx) => WishlistBloc(
