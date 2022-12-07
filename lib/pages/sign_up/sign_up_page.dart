@@ -10,19 +10,22 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: ECMAppBar(
-          title: 'Sign Up',
-          showWishlistButton: false,
-          automaticallyImplyLeading: false,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: const Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: ECMAppBar(
+            title: 'Sign Up',
+            showWishlistButton: false,
+            automaticallyImplyLeading: false,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
-          child: SignUpForm(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
+            child: SignUpForm(),
+          ),
         ),
       ),
     );

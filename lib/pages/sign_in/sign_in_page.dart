@@ -10,19 +10,22 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: ECMAppBar(
-          title: 'Sign In',
-          showWishlistButton: false,
-          automaticallyImplyLeading: false,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: const Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: ECMAppBar(
+            title: 'Sign In',
+            showWishlistButton: false,
+            automaticallyImplyLeading: false,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: SignInForm(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: SignInForm(),
+          ),
         ),
       ),
     );
